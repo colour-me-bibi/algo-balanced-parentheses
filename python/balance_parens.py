@@ -36,7 +36,6 @@ def balance_parens(string):  # TODO disgusting
                 result += string[slow:fast + 1]
                 slow = fast = fast + 1
                 continue
-        
         # capture characters outside of valid parenthesis and set pointers to fast + 1
         elif stack == 0:
             result += string[fast]
