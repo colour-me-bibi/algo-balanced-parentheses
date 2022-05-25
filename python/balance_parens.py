@@ -24,8 +24,7 @@ def balance_parens(string):  # TODO disgusting
             stack += 1
         elif string[fast] == ")":
             # if c is ) and there's no matching parenthesis, reset stack and set pointers to fast + 1
-            if not stack:
-                stack = 0
+            if stack == 0:
                 fast = slow = slow + 1
                 continue
 
@@ -33,13 +32,13 @@ def balance_parens(string):  # TODO disgusting
 
             # if this ) emptied the stack, append the valid substring to the result
             #     and set pointers to fast + 1
-            if not stack:
+            if stack == 0:
                 result += string[slow:fast + 1]
                 slow = fast = fast + 1
                 continue
         
         # capture characters outside of valid parenthesis
-        elif not stack:
+        elif stack == 0:
             result += string[fast]
             slow = fast = fast + 1
             continue
