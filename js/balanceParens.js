@@ -4,7 +4,7 @@
  * @param {String} string A string possibly containing parenthesis.
  * @returns {String} A string containing all substrings which are balanced within the given string.
  */
-const balanceParens = (string) => {
+const balanceParens = (string) => {  // TODO disgusting
   let stack = 0;
   let result = "";
 
