@@ -41,7 +41,7 @@ const balanceParens = (string) => {
         slow = fast;
         continue;
       }
-      // capture characters outside of valid parenthesis and set pointers to fast + 1
+    // capture characters outside of valid parenthesis and set pointers to fast + 1
     } else if (stack === 0) {
       result += string[fast];
       fast++;
