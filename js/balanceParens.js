@@ -4,7 +4,8 @@
  * @param {String} string A string possibly containing parenthesis.
  * @returns {String} A string containing all substrings which are balanced within the given string.
  */
-const balanceParens = (string) => {  // TODO disgusting
+const balanceParens = (string) => {
+  // TODO disgusting
   let stack = 0;
   let result = "";
 
@@ -14,38 +15,36 @@ const balanceParens = (string) => {  // TODO disgusting
   while (slow < string.length) {
     if (fast > string.length - 1) {
       stack = 0;
-      fast = slow = slow + 1;
+      slow++;
+      fast = slow;
       continue;
     }
 
-    switch (string[fast]) {
-      case "(":
-        stack++;
-        break;
-      case ")":
-        if (stack === 0) {
-          fast = slow = slow + 1;
-          continue;
-        }
+    if (string[fast] === "(") {
+      stack++;
+    } else if (string[fast] === ")") {
+      if (stack === 0) {
+        slow++;
+        fast = slow;
+        continue;
+      }
 
-        stack--;
+      stack--;
 
-        if (stack === 0) {
-          result += string.substring(slow, fast + 1);
-          slow = fast = fast + 1;
-          continue;
-        }
-        break;
-      default:
-        if (stack === 0) {
-          result += string[fast];
-          slow = fast = fast + 1;
-          continue;
-        }
-        break;
+      if (stack === 0) {
+        result += string.substring(slow, fast + 1);
+        fast++;
+        slow = fast;
+        continue;
+      }
+    } else if (stack === 0) {
+      result += string[fast];
+      fast++;
+      slow = fast;
+      continue;
     }
 
-    fast += 1;
+    fast++;
   }
 
   return result;
