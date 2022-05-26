@@ -12,35 +12,31 @@ def balance_parens(string):  # TODO disgusting
     stack, result = 0, str()
     slow, fast = 0, 0
 
+    # two pointer sliding window finding successive longest valid substrings
     while slow < len(string):
-        # if fast pointer out of bounds, reset stack and set pointers to slow + 1
-        if fast > len(string) - 1:
-            stack = 0
-            fast = slow = slow + 1
+        if fast > len(string) - 1:  # if fast pointer out of bounds
+            stack = 0               #   reset stack
+            fast = slow = slow + 1  #   set pointers to slow + 1
             continue
 
-        # if c is ( increment the stack
-        if string[fast] == "(":
-            stack += 1
-        elif string[fast] == ")":
-            # if c is ) and there's no matching parenthesis, reset stack and set pointers to slow + 1
-            if stack == 0:
-                fast = slow = slow + 1
-                continue
+        match string[fast]:
+            case "(":
+                stack += 1
+            case ")":
+                if stack == 0:              # if no matching "("
+                    fast = slow = slow + 1  #   set pointers to slow + 1
+                    continue
 
-            stack -= 1
+                stack -= 1
 
-            # if this ) emptied the stack, append the valid substring to the result
-            #     and set pointers to fast + 1
-            if stack == 0:
-                result += string[slow:fast + 1]
-                slow = fast = fast + 1
+                if stack == 0:                          # if last paren popped
+                    result += string[slow:fast + 1]     #   append valid substring
+                    slow = fast = fast + 1              #   set pointers to fast + 1
+                    continue
+            case char if stack == 0:    # if char not a paren and outside of substrings
+                result += char          #   char is valid substring, append to result
+                slow = fast = fast + 1  #   set pointers to fast + 1
                 continue
-        # capture characters outside of valid parenthesis and set pointers to fast + 1
-        elif stack == 0:
-            result += string[fast]
-            slow = fast = fast + 1
-            continue
 
         fast += 1
 
