@@ -1,6 +1,7 @@
-def balance_parens(string):  # TODO disgusting
+def balance_parens(string):
     """
-    This function returns all substrings which are balanced within the given string.
+    This function returns the string composed of successive longest valid substrings within the given
+    given string where a valid string contains matching parenthesis.
 
     Args:
         string (str): A string possibly containing parenthesis.
